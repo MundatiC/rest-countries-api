@@ -1,0 +1,120 @@
+.country {
+    padding: 50px;
+}
+
+.btn-light{
+    margin-bottom: 30px;
+    display: inline-block;
+    box-shadow: 0 5px 20px hsla(200, 15%, 8%, 0.2);
+}
+
+
+
+
+.country article .country-details div{
+    margin: 30px 0;
+
+}
+
+.country article .country-details div h2{
+    font-weight: 700;
+    font-size: 30px;
+    letter-spacing: 1px;
+}
+
+.country article .country-details div h5{
+    font-weight: 600;
+    margin: 10px 0;
+    font-size: 18px;
+}
+
+.country article .country-details div h5 span{
+    font-weight: 300;
+    font-size: 16px;
+    opacity: 0.8;
+}
+
+.country article   h3{
+    font-weight: 700;
+}
+
+.country article .border-country{
+    display: grid;
+    justify-content: end;
+}
+
+.country article .borders{
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 5px;
+    flex-direction: row;
+}
+
+.country article .borders ul{
+    margin-left: 0;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: var(--article-color);
+    padding: 3px 20px;
+    list-style-type: none;
+    border-radius: 3px;
+    box-shadow: 0 5px 20px hsla(200, 15%, 8%, 0.2);
+}
+
+.country article .borders ul.light-theme{
+    background-color: var(--light-mode-background);
+}
+
+@media (min-width: 992px){
+
+   
+    .country article .country-inner{
+       display: grid;
+       grid-template-columns: repeat(2, 1fr);
+       place-items: center;
+       
+      
+    }
+
+    .country article .country-details{
+        display: flex;
+        flex-direction: column;
+        margin: 0px 70px;
+        
+    }
+
+    .country article .country-details .country-stuff{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin-top: 0;
+        
+    }
+
+    .country article .country-details .country-stuff .country{
+        margin-left: 20px;
+    }
+}
+
+@media (min-width: 1200px){
+    .country{
+        max-width: 1100px;
+        margin: auto;
+    }
+}
+
+@media (min-width: 1366px){
+    .country{
+        max-width: 1200px;
+        
+    }
+}
+
+@media (min-width: 1200px){
+    .country{
+        max-width: 1400px;
+        
+    }
+}
+
