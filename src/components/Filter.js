@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { ThemeContext } from '../ThemeContext';
 
 const Filter = ({ countries, setFilteredCountries }) => {
   const [searchValue, setSearchValue] = useState('');
   const [selectedRegion, setSelectedRegion] = useState('');
+  const { theme } = useContext(ThemeContext);
 
   const handleSearchChange = (e) => {
     const value = e.target.value;
@@ -35,29 +37,36 @@ const Filter = ({ countries, setFilteredCountries }) => {
   };
 
   return (
-    <section className="filter">
-      <form className="form-control">
-        <input
-          type="search"
-          name="search"
-          id="search"
-          placeholder="Search for a country"
-          value={searchValue}
-          onChange={handleSearchChange}
-        />
-      </form>
+    <section className={`filter ${theme}`}> {/* Apply theme class to section */}
+    <form className={`form-control ${theme}`}> {/* Apply theme class to form */}
+      <input
+        type="search"
+        name="search"
+        id="search"
+        placeholder="Search for a country"
+        value={searchValue}
+        onChange={handleSearchChange}
+        className={`${theme}`} // Apply theme class to input
+      />
+    </form>
 
-      <div className="region-filter">
-        <select name="select" id="select" className="select" value={selectedRegion} onChange={handleRegionChange}>
-          <option value="">Filter by region</option>
-          <option value="Africa">Africa</option>
-          <option value="Americas">Americas</option>
-          <option value="Asia">Asia</option>
-          <option value="Europe">Europe</option>
-          <option value="Oceania">Oceania</option>
-        </select>
-      </div>
-    </section>
+    <div className={`region-filter ${theme}`}> {/* Apply theme class to div */}
+      <select
+        name="select"
+        id="select"
+        className={`select ${theme}`} // Apply theme class to select
+        value={selectedRegion}
+        onChange={handleRegionChange}
+      >
+        <option value="">Filter by region</option>
+        <option value="Africa">Africa</option>
+        <option value="Americas">Americas</option>
+        <option value="Asia">Asia</option>
+        <option value="Europe">Europe</option>
+        <option value="Oceania">Oceania</option>
+      </select>
+    </div>
+  </section>
   );
 };
 

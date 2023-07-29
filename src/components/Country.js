@@ -1,112 +1,116 @@
-import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import { useNavigate, Link, useParams } from "react-router-dom";
+import { ThemeContext } from '../ThemeContext'; // Import the ThemeContext
 import "../country.css";
 import data from "../data.json";
+
 
 const Country = () => {
   const [country, setCountry] = useState([]);
   const [borderCountries, setBorderCountries] = useState([]);
   const { name } = useParams();
+  const { theme } = useContext(ThemeContext);
+  const navigate = useNavigate();  
 
-  //   useEffect(() => {
-  //     const fetchCountryData = async () => {
-  //       try {
-  //         const response = await fetch(
-  //           `https://restcountries.com/v3.1/name/${name}`
-  //         );
-  //         if (response.ok) {
-  //           const country = await response.json();
-  //           setCountry(country);
-  //           fetchBorderCountriesData(country[0]);
-  //         } else {
-  //           throw new Error("API request failed");
-  //         }
-  //       } catch (error) {
-  //         console.error(error);
-  //         // API is down, use data.json as alternative
-  //         setCountry(data.filter((item) => item.name.common === name));
-  //       }
-  //     };
-  //     fetchCountryData();
-  //   }, [name]);
+    useEffect(() => {
+      const fetchCountryData = async () => {
+        try {
+          const response = await fetch(
+            `https://restcountries.com/v3.1/name/${name}`
+          );
+          if (response.ok) {
+            const country = await response.json();
+            setCountry(country);
+            fetchBorderCountriesData(country[0]);
+          } else {
+            throw new Error("API request failed");
+          }
+        } catch (error) {
+          console.error(error);
+          // API is down, use data.json as alternative
+          setCountry(data.filter((item) => item.name.common === name));
+        }
+      };
+      fetchCountryData();
+    }, [name]);
 
-  //   const getFirstNativeName = (nativeName) => {
-  //     for (const lang in nativeName) {
-  //       if (nativeName.hasOwnProperty(lang)) {
-  //         return nativeName[lang].common;
-  //       }
-  //     }
-  //     return "";
-  //   };
-
-  //   const fetchBorderCountriesData = async (countryData) => {
-  //     if (countryData.borders) {
-  //       const borderCodes = countryData.borders;
-
-  //       try {
-  //         const borderCountriesData = [];
-  //         for (const code of borderCodes) {
-  //           const response = await fetch(
-  //             `https://restcountries.com/v3.1/alpha/${code}`
-  //           );
-  //           const borderCountryData = await response.json();
-
-  //           if (
-  //             borderCountryData &&
-  //             borderCountryData.length > 0 &&
-  //             borderCountryData[0].name
-  //           ) {
-  //             const borderCountryName = borderCountryData[0].name.common;
-  //             borderCountriesData.push(borderCountryName);
-  //           }
-  //         }
-  //         setBorderCountries(borderCountriesData);
-  //       } catch (error) {
-  //         console.error(error);
-  //         // API is down, use data.json as alternative
-  //         const borderCountryNames = data
-  //           .filter((item) => borderCodes.includes(item.cca3))
-  //           .map((item) => item.name.common);
-  //         setBorderCountries(borderCountryNames);
-  //       }
-  //     }
-  //   };
-
-  useEffect(() => {
-    const fetchCountryData = () => {
-      const countryData = data.filter((item) => item.name.common === name);
-      setCountry(countryData);
-      fetchBorderCountriesData(countryData[0]);
+    const getFirstNativeName = (nativeName) => {
+      for (const lang in nativeName) {
+        if (nativeName.hasOwnProperty(lang)) {
+          return nativeName[lang].common;
+        }
+      }
+      return "";
     };
 
-    fetchCountryData();
-  }, [name]);
+    const fetchBorderCountriesData = async (countryData) => {
+      if (countryData.borders) {
+        const borderCodes = countryData.borders;
 
-  const getFirstNativeName = (nativeName) => {
-    for (const lang in nativeName) {
-      if (nativeName.hasOwnProperty(lang)) {
-        return nativeName[lang].common;
+        try {
+          const borderCountriesData = [];
+          for (const code of borderCodes) {
+            const response = await fetch(
+              `https://restcountries.com/v3.1/alpha/${code}`
+            );
+            const borderCountryData = await response.json();
+
+            if (
+              borderCountryData &&
+              borderCountryData.length > 0 &&
+              borderCountryData[0].name
+            ) {
+              const borderCountryName = borderCountryData[0].name.common;
+              borderCountriesData.push(borderCountryName);
+            }
+          }
+          setBorderCountries(borderCountriesData);
+        } catch (error) {
+          console.error(error);
+          // API is down, use data.json as alternative
+          const borderCountryNames = data
+            .filter((item) => borderCodes.includes(item.cca3))
+            .map((item) => item.name.common);
+          setBorderCountries(borderCountryNames);
+        }
       }
-    }
-    return "";
-  };
+    };
 
-  const fetchBorderCountriesData = (countryData) => {
-    if (countryData.borders) {
-      const borderCodes = countryData.borders;
-      const borderCountryNames = data
-        .filter((item) => borderCodes.includes(item.cca3))
-        .map((item) => item.name.common);
-      setBorderCountries(borderCountryNames);
-    }
-  };
+//   useEffect(() => {
+//     const fetchCountryData = () => {
+//       const countryData = data.filter((item) => item.name.common === name);
+//       setCountry(countryData);
+//       fetchBorderCountriesData(countryData[0]);
+//     };
+
+//     fetchCountryData();
+//   }, [name]);
+
+//   const getFirstNativeName = (nativeName) => {
+//     for (const lang in nativeName) {
+//       if (nativeName.hasOwnProperty(lang)) {
+//         return nativeName[lang].common;
+//       }
+//     }
+//     return "";
+//   };
+
+//   const fetchBorderCountriesData = (countryData) => {
+//     if (countryData.borders) {
+//       const borderCodes = countryData.borders;
+//       const borderCountryNames = data
+//         .filter((item) => borderCodes.includes(item.cca3))
+//         .map((item) => item.name.common);
+//       setBorderCountries(borderCountryNames);
+//     }
+//   };
 
   return (
     <>
-      <section className="country">
-        <Link to="/" className="btn btn-light">
-          <i className="fas fa-arrow-left"></i> Back
-        </Link>
+      <section className={`country ${theme}`}> {/* Apply theme class to section */}
+      <Link to="/" className={`btn btn-light ${theme}`}> {/* Apply theme class to link */}
+        <i className="fas fa-arrow-left"></i> Back
+      </Link>
         {country.map((country) => {
           const {
             name,
@@ -125,9 +129,9 @@ const Country = () => {
           const imageUrl = flags.svg;
 
           // Extract currency names
-          const currencyNames = Object.values(currencies).map(
-            (currency) => currency.name
-          );
+          const currencyNames = currencies
+            ? Object.values(currencies).map((currency) => currency.name)
+            : [];
 
           // Extract language names
           const languageNames = Object.values(languages);
@@ -174,12 +178,14 @@ const Country = () => {
                   </div>
                     </div>
                   
-                  <div className="border-country">
+                  <div className={`border-country ${theme}`}>
                     <h3>Border Countries:</h3>
                     <div className="borders">
                       {borderCountries.map((borderCountry) => (
-                        <ul key={borderCountry}>
-                          <li>{borderCountry}</li>
+                        <ul className={` ${theme}`} key={borderCountry}>
+                          <li onClick={() => navigate(`/countries/${borderCountry}`)}>
+                            {borderCountry}
+                          </li>
                         </ul>
                       ))}
                     </div>

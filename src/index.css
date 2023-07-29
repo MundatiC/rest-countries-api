@@ -10,6 +10,7 @@
   --light-mode-background-body: hsl(0, 0%, 95%);
 }
 
+
 *{
   margin: 0;
   padding: 0;
@@ -20,21 +21,21 @@ img{
   max-width: 100%;
 }
 
-body{
-  font-family: 'Nunito Sans', sans-serif;
-  /* padding: 20px; */
-  background-color: var(--dark-bg-color);
-  color: var(--text-color);
-  transition: background-color 0.4s;
-}
 
-body.light-theme {
+
+body{
   background-color: var(--light-mode-background-body);
   color: var(--light-mode-text);
+  font-family: 'Nunito Sans', sans-serif;
+  transition: background-color 0.4s;
 }
+body .dark-theme {
+  background-color: var(--dark-bg-color);
+  color: var(--text-color);
 
+}
 /* Header */
-.header{
+.header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -162,6 +163,10 @@ header.light-theme {
   background-color: var(--light-mode-background);
   color: var(--light-mode-text);
   box-shadow: 5px 5px 10px hsla(200, 15%, 8%, 0.1);
+}
+
+.grid .details.dark-theme{
+  background-color: var(--article-color);
 }
 
 .grid .details h3{

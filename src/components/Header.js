@@ -1,54 +1,24 @@
-import React from 'react'
+import React, { useContext } from 'react';
+import { ThemeContext } from '../ThemeContext'; // Import the ThemeContext
 
 const Header = () => {
+  const { theme, toggleTheme } = useContext(ThemeContext); // Use the context here
 
-  const changeTheme = () => {
-    const header = document.querySelector('.header');
-    const details = document.querySelectorAll('.details');
-    const uls = document.querySelectorAll('ul');
-  
-    document.body.classList.toggle('light-theme');
-    header.classList.toggle('light-theme');
-  
-    details.forEach((detail) => {
-      detail.classList.toggle('light-theme');
-    });
-  
-    uls.forEach((ul) => {
-      ul.classList.toggle('light-theme');
-    });
-  
-    const input = document.querySelector('#search');
-    if (input) {
-      input.classList.toggle('light-theme');
-    }
-  
-    const select = document.querySelector('select');
-    if (select) {
-      select.classList.toggle('light-theme');
-    }
-
-    const back = document.querySelector('.btn-light');
-    if (back) {
-      back.classList.toggle('light-theme');
-    }
-  };
-  
   return (
     <>
-    <header className='header'>
+      <header className={`header ${theme}`}>
         <div>
-            <h1>Where in the world?</h1>
+          <h1>Where in the world?</h1>
         </div>
 
         <div>
-        <i className="fas fa-moon" onClick={changeTheme}> Dark Mode
-        </i>
+          <i className="fas fa-moon" onClick={toggleTheme}>
+            {theme === 'light-theme' ? 'Dark Mode' : 'Light Mode'}
+          </i>
         </div>
-        
-    </header>
+      </header>
     </>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
