@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate, Link, useParams } from "react-router-dom";
-import { ThemeContext } from '../ThemeContext'; // Import the ThemeContext
+import { ThemeContext } from '../ThemeContext';
 import "../country.css";
 import data from "../data.json";
 
@@ -76,34 +76,7 @@ const Country = () => {
       }
     };
 
-//   useEffect(() => {
-//     const fetchCountryData = () => {
-//       const countryData = data.filter((item) => item.name.common === name);
-//       setCountry(countryData);
-//       fetchBorderCountriesData(countryData[0]);
-//     };
 
-//     fetchCountryData();
-//   }, [name]);
-
-//   const getFirstNativeName = (nativeName) => {
-//     for (const lang in nativeName) {
-//       if (nativeName.hasOwnProperty(lang)) {
-//         return nativeName[lang].common;
-//       }
-//     }
-//     return "";
-//   };
-
-//   const fetchBorderCountriesData = (countryData) => {
-//     if (countryData.borders) {
-//       const borderCodes = countryData.borders;
-//       const borderCountryNames = data
-//         .filter((item) => borderCodes.includes(item.cca3))
-//         .map((item) => item.name.common);
-//       setBorderCountries(borderCountryNames);
-//     }
-//   };
 
   return (
     <>

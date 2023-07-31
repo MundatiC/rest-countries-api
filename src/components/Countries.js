@@ -10,7 +10,8 @@ const url = `https://restcountries.com/v3.1/all`;
 const Countries = () => {
   const [countries, setCountries] = useState([]);
   const [filteredCountries, setFilteredCountries] = useState([]);
-  const { theme } = useContext(ThemeContext); // Get the theme from the context
+  const { theme } = useContext(ThemeContext); 
+  let scrollTimer;
 
 
   const fetchCountriesData = async () => {
@@ -28,26 +29,43 @@ const Countries = () => {
 
   useEffect(() => {
     fetchCountriesData();
+    document.addEventListener("scroll", handleScroll);
+    return () => {
+      document.removeEventListener("scroll", handleScroll);
+    };
   }, []);
+
+  const handleScroll = () => {
+    // Add a class to the body when scrolling starts
+    document.body.classList.add("scrolling");
+
+    // Clear the timeout to prevent flickering when scrolling stops
+    clearTimeout(scrollTimer);
+
+    // Set a timeout to remove the class after 200ms when scrolling stops
+    scrollTimer = setTimeout(() => {
+      document.body.classList.remove("scrolling");
+    }, 200);
+  };
 
   return (
     <>
     <Filter countries={countries} setFilteredCountries={setFilteredCountries} />
 
-    <section className={`grid ${theme}`}> {/* Apply theme class to section */}
+    <section className={`grid ${theme}`}> 
       {filteredCountries.map((country, index) => {
         const { name, population, region, capital, flags, ccn3 } = country;
         const countryName = name.common;
         const imageUrl = flags.png;
 
         return (
-          <Link to={`/countries/${countryName}`} className={`country-link ${theme}`} key={`${ccn3} - ${index}`}> {/* Apply theme class to Link */}
+          <Link to={`/countries/${countryName}`} className={`country-link ${theme}`} key={`${ccn3} - ${index}`}> 
             <article>
               <div>
                 <img src={imageUrl} alt={countryName} />
               </div>
-              <div className={`details ${theme}`}> {/* Apply theme class to div */}
-                <h3 className={`country-name`}>{countryName}</h3> {/* Apply theme class to h3 */}
+              <div className={`details ${theme}`}>
+                <h3 className={`country-name`}>{countryName}</h3> 
                 <h4>
                   Population: <span>{population}</span>
                 </h4>

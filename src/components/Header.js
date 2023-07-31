@@ -1,20 +1,31 @@
-import React, { useContext } from 'react';
-import { ThemeContext } from '../ThemeContext'; // Import the ThemeContext
-
+import React, { useContext } from "react";
+import { ThemeContext } from "../ThemeContext"; 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSun, faMoon } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 const Header = () => {
-  const { theme, toggleTheme } = useContext(ThemeContext); // Use the context here
+  const { theme, toggleTheme } = useContext(ThemeContext); 
+  const navigate = useNavigate()
 
   return (
     <>
       <header className={`header ${theme}`}>
         <div>
-          <h1>Where in the world?</h1>
+          <h1 onClick={ () => navigate('/')}>Where in the world?</h1>
         </div>
 
-        <div>
-          <i className="fas fa-moon" onClick={toggleTheme}>
-            {theme === 'light-theme' ? 'Dark Mode' : 'Light Mode'}
-          </i>
+        <div className="theme-toggle" onClick={toggleTheme}>
+          {theme === "light-theme" ? (
+            <>
+              <FontAwesomeIcon icon={faMoon} className="theme-icon" />
+              Dark Mode
+            </>
+          ) : (
+            <>
+              <FontAwesomeIcon icon={faSun} className="theme-icon" />
+              Light Mode
+            </>
+          )}
         </div>
       </header>
     </>

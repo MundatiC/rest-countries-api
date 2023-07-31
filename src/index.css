@@ -22,32 +22,65 @@ img{
 }
 
 
-
 body{
+  font-family: 'Nunito Sans', sans-serif;
+  height: 100vh;
+}
+ body, .header, .grid filter .form-control input, .filter .region-filter .select{
+  transition: background-color 0.4s, color 0.4s;
+}
+
+body
+.light-theme{
   background-color: var(--light-mode-background-body);
   color: var(--light-mode-text);
-  font-family: 'Nunito Sans', sans-serif;
-  transition: background-color 0.4s;
+ 
 }
-body .dark-theme {
+body
+.dark-theme {
   background-color: var(--dark-bg-color);
   color: var(--text-color);
 
 }
+
+
 /* Header */
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: var(--article-color);
   padding: 10px 20px;
-  box-shadow: 0 5px 10px hsla(200, 15%, 8%, 0.1);
+  position: sticky;
+  top: 0;
+  transition: background-color 0.4s, color 0.4s;
+  
+}
+header.dark-theme{
+  background-color: var(--article-color);
+  box-shadow: 0 5px 10px hsla(0, 0%, 0%, 0.1);
 }
 
 header.light-theme {
   background-color: var(--light-mode-background);
   color: var(--light-mode-text);
+  box-shadow: 0 5px 10px hsla(0, 0%, 0%, 0.1);
 }
+
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.theme-icon {
+  margin-right: 8px;
+}
+
+
 
 .fas{
   margin-right: 5px;
@@ -119,6 +152,7 @@ header.light-theme {
   grid-template-columns: 1fr;
   gap: 40px;
   padding: 20px;
+ min-height: 900px;
   
 }
 
@@ -133,16 +167,10 @@ header.light-theme {
   display: flex;
   flex-direction: column;
   height: 100%;
-  transition: 0.3s ease-in-out;
   
-  
-  
-
 }
 
-.grid article:hover{
-  transform: scale(1.02);
-}
+
 .grid article img{
   object-fit: cover;
   object-position: center;
