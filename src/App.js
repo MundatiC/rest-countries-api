@@ -8,7 +8,7 @@ import Country from './components/Country';
 function App() {
   return (
     <Router>
-       <Header />
+       
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/countries/:name" element={<Country />} />
@@ -20,6 +20,7 @@ function App() {
 function HomePage() {
   return (
     <>
+    <Header />
       <Countries />
     </>
   );
