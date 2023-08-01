@@ -6,25 +6,14 @@ import Country from "./components/Country";
 
 function App() {
   return (
-    <Router basename="/rest-countries-api">
+    <Router>
+      <Header />
       <Routes>
-        <Route
-          path="/"
-          element={
-            <>
-              <Header />
-              <Countries />
-            </>
-          }
-        />
+        <Route path="/" element={<Countries />} />
         <Route path="/countries/:name" element={<Country />} />
       </Routes>
     </Router>
   );
-}
-
-function HomePage() {
-  return <></>;
 }
 
 export default App;
