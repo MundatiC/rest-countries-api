@@ -6,7 +6,7 @@ import Country from "./components/Country";
 
 function App() {
   return (
-    <Router>
+    <Router basename="/rest-countries-api">
       <Routes>
         <Route
           path="/"
