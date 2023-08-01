@@ -70,5 +70,5 @@ Contributions are welcome! If you find any bugs or have suggestions for new feat
 If you have any questions or need further assistance, feel free to contact me:
 
 - Email: calebngethe230@gmail.com
-- GitHub: [Your GitHub Profile](https://github.com/MundatiC)
+- GitHub: [MundatiC](https://github.com/MundatiC)
 - LinkedIn: [caleb-mundati](https://www.linkedin.com/in/caleb-mundati/)
