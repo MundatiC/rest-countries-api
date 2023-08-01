@@ -57,7 +57,7 @@ Check out the live site [here](https://mundatic.github.io/rest-countries-api/).
 ![Desktop View](./src/images/desktop-design-home-dark.jpg)
 
 ### Mobile View
-<img src="./src/images/mobile-design-home-dark.jpg" alt="Mobile View" style="max-height: 400px;">
+<img src="./src/images/mobile-design-home-dark.jpg" alt="Mobile View" style="max-height: 200px;">
 
 
 ## Contributing
