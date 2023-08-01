@@ -53,8 +53,12 @@ Check out the live site [here](https://mundatic.github.io/rest-countries-api/).
 
 ## Screenshots
 
+### Desktop View
 ![Desktop View](./src/images/desktop-design-home-dark.jpg)
-![Mobile View](./src/images/mobile-design-home-dark.jpg)
+
+### Mobile View
+<img src="./src/images/mobile-design-home-dark.jpg" alt="Mobile View" style="max-height: 400px;">
+
 
 ## Contributing
 
