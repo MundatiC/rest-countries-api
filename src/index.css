@@ -66,12 +66,18 @@ header.light-theme {
   box-shadow: 0 5px 10px hsla(0, 0%, 0%, 0.1);
 }
 
+.header h1 {
+  font-size: 2em;
+  font-weight: 800;
+  cursor: pointer;
+}
+
 
 .theme-toggle {
   display: flex;
   align-items: center;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 1.3em;
   font-weight: 600;
   transition: color 0.2s;
 }

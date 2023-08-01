@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { ThemeContext } from '../ThemeContext'; // Import the ThemeContext
+import { ThemeContext } from '../ThemeContext';
 import data from '../data.json';
 import Filter from './Filter';
 
@@ -29,24 +29,9 @@ const Countries = () => {
 
   useEffect(() => {
     fetchCountriesData();
-    document.addEventListener("scroll", handleScroll);
-    return () => {
-      document.removeEventListener("scroll", handleScroll);
-    };
   }, []);
 
-  const handleScroll = () => {
-    // Add a class to the body when scrolling starts
-    document.body.classList.add("scrolling");
 
-    // Clear the timeout to prevent flickering when scrolling stops
-    clearTimeout(scrollTimer);
-
-    // Set a timeout to remove the class after 200ms when scrolling stops
-    scrollTimer = setTimeout(() => {
-      document.body.classList.remove("scrolling");
-    }, 200);
-  };
 
   return (
     <>
@@ -67,7 +52,7 @@ const Countries = () => {
               <div className={`details ${theme}`}>
                 <h3 className={`country-name`}>{countryName}</h3> 
                 <h4>
-                  Population: <span>{population}</span>
+                  Population: <span>{population.toLocaleString()}</span>
                 </h4>
                 <h4>
                   Region: <span>{region}</span>
