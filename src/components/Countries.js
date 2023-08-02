@@ -10,6 +10,9 @@ const Countries = () => {
   const { theme } = useContext(ThemeContext);
   const [countries, setCountries] = useState([]);
   const [filteredCountries, setFilteredCountries] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [countriesPerPage, setCountriesPerPage] = useState(12);
+  const visiblePages = 5; // Number of visible page buttons
 
   const fetchCountriesData = async () => {
     try {
@@ -19,7 +22,7 @@ const Countries = () => {
         setCountries(countriesData);
         setFilteredCountries(countriesData);
       } else {
-        throw new Error("API request failed");
+        throw new Error('API request failed');
       }
     } catch (error) {
       console.error(error);
@@ -32,12 +35,57 @@ const Countries = () => {
     fetchCountriesData();
   }, []);
 
+  // Handle filtering and search
+  const handleFilterAndSearch = (filteredCountries) => {
+    setFilteredCountries(filteredCountries);
+    setCurrentPage(1); // Reset to first page when filter or search changes
+  };
+
+  // Get current countries for the current page
+  const indexOfLastCountry = currentPage * countriesPerPage;
+  const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;
+  const currentCountries = filteredCountries.slice(indexOfFirstCountry, indexOfLastCountry);
+
+  // Change page
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
+  // Calculate total number of pages
+  const totalPages = Math.ceil(filteredCountries.length / countriesPerPage);
+
+  // Generate the range of visible page buttons
+  const getPageRange = () => {
+    const halfVisiblePages = Math.floor(visiblePages / 2);
+    let startPage = Math.max(1, currentPage - halfVisiblePages);
+    const endPage = Math.min(totalPages, startPage + visiblePages - 1);
+
+    // Adjust startPage if there are not enough visible pages
+    if (endPage - startPage + 1 < visiblePages) {
+      startPage = Math.max(1, endPage - visiblePages + 1);
+    }
+
+    return Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
+  };
+
+  // Handle changing the number of countries per page
+  const handleCountriesPerPageChange = (e) => {
+    const value = Number(e.target.value);
+    setCountriesPerPage(value);
+    setCurrentPage(1); // Reset to first page when number of countries per page changes
+  };
+
+  // Calculate the range of countries being displayed
+  const firstCountryIndex = (currentPage - 1) * countriesPerPage + 1;
+  const lastCountryIndex = Math.min(currentPage * countriesPerPage, filteredCountries.length);
+
   return (
     <>
-      <Filter countries={countries} setFilteredCountries={setFilteredCountries} />
+      <Filter
+        countries={countries}
+        setFilteredCountries={handleFilterAndSearch}
+      />
 
       <section className={`grid ${theme}`}>
-        {filteredCountries.map((country, index) => {
+        {currentCountries.map((country, index) => {
           const { name, population, region, capital, flags, ccn3 } = country;
           const countryName = name.common;
           const imageUrl = flags.png;
@@ -69,6 +117,56 @@ const Countries = () => {
           );
         })}
       </section>
+
+      {/* Responsive Pagination */}
+      <div className='bottom'>
+
+      
+      <div className={`pagination-results ${theme}`}>
+      <div className={`pagination ${theme}`}>
+        {currentPage > 1 && (
+          <button onClick={() => paginate(currentPage - 1)}>&lt; Previous Page</button>
+        )}
+        {getPageRange().map((page) => (
+          <button
+            key={page}
+            className={page === currentPage ? 'active' : ''}
+            onClick={() => paginate(page)}
+          >
+            {page}
+          </button>
+        ))}
+        {currentPage < totalPages && (
+          <button onClick={() => paginate(currentPage + 1)}>Next Page &gt;</button>
+        )}
+      </div>
+
+     {/* Results */}
+     <div className={`results ${theme}`}>
+          <div className={`result ${theme}`}>
+            Results: {firstCountryIndex}-{lastCountryIndex} of {filteredCountries.length}
+          </div>
+
+          {/* Dropdown to select the number of countries per page */}
+          <div className={`countries-per-page ${theme}`}>
+            <label htmlFor="countriesPerPage"></label>
+            <select
+              name="countriesPerPage"
+              id="countriesPerPage"
+              value={countriesPerPage}
+              onChange={handleCountriesPerPageChange}
+            >
+              <option value={6}>6</option>
+              <option value={12}>12</option>
+              <option value={24}>24</option>
+              <option value={36}>36</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      </div>
+
+   
     </>
   );
 };
