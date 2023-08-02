@@ -9,19 +9,12 @@ const Filter = ({ countries, setFilteredCountries }) => {
   const handleSearchChange = (e) => {
     const value = e.target.value;
     setSearchValue(value);
-    console.log(value);
-
-    const filteredCountries = countries.filter((country) =>
-      country.name.common.toLowerCase().includes(value.toLowerCase())
-    );
-    setFilteredCountries(filteredCountries);
+    filterCountries(value, selectedRegion);
   };
-  
 
   const handleRegionChange = (e) => {
     const region = e.target.value;
     setSelectedRegion(region);
-
     filterCountries(searchValue, region);
   };
 
@@ -37,36 +30,36 @@ const Filter = ({ countries, setFilteredCountries }) => {
   };
 
   return (
-    <section className={`filter ${theme}`}> {/* Apply theme class to section */}
-    <form className={`form-control ${theme}`}> {/* Apply theme class to form */}
-      <input
-        type="search"
-        name="search"
-        id="search"
-        placeholder="Search for a country"
-        value={searchValue}
-        onChange={handleSearchChange}
-        className={`${theme}`} // Apply theme class to input
-      />
-    </form>
+    <section className={`filter ${theme}`}>
+      <form className={`form-control ${theme}`}>
+        <input
+          type="search"
+          name="search"
+          id="search"
+          placeholder="Search for a country"
+          value={searchValue}
+          onChange={handleSearchChange}
+          className={theme} // Apply theme class to input
+        />
+      </form>
 
-    <div className={`region-filter ${theme}`}> {/* Apply theme class to div */}
-      <select
-        name="select"
-        id="select"
-        className={`select ${theme}`} // Apply theme class to select
-        value={selectedRegion}
-        onChange={handleRegionChange}
-      >
-        <option value="">Filter by region</option>
-        <option value="Africa">Africa</option>
-        <option value="Americas">Americas</option>
-        <option value="Asia">Asia</option>
-        <option value="Europe">Europe</option>
-        <option value="Oceania">Oceania</option>
-      </select>
-    </div>
-  </section>
+      <div className={`region-filter ${theme}`}>
+        <select
+          name="select"
+          id="select"
+          className={`select ${theme}`}
+          value={selectedRegion}
+          onChange={handleRegionChange}
+        >
+          <option value="">Filter by region</option>
+          <option value="Africa">Africa</option>
+          <option value="Americas">Americas</option>
+          <option value="Asia">Asia</option>
+          <option value="Europe">Europe</option>
+          <option value="Oceania">Oceania</option>
+        </select>
+      </div>
+    </section>
   );
 };
 

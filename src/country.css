@@ -76,8 +76,8 @@
 }
 
 .country article .borders ul.light-theme {
-    background-color: var(--light-mode-background);
-    color: var(--light-mode-text);
+    background-color: var(--article-color);
+    color: var(--text-color);
     box-shadow: 5px 5px 10px hsla(200, 15%, 8%, 0.1);
 }
 
