@@ -1,8 +1,13 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { ThemeContext } from '../ThemeContext';
-import data from '../data.json';
-import Filter from './Filter';
+import React, { useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
+import { ThemeContext } from "../ThemeContext";
+import data from "../data.json";
+import Filter from "./Filter";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 const url = `https://restcountries.com/v3.1/all`;
 
@@ -22,7 +27,7 @@ const Countries = () => {
         setCountries(countriesData);
         setFilteredCountries(countriesData);
       } else {
-        throw new Error('API request failed');
+        throw new Error("API request failed");
       }
     } catch (error) {
       console.error(error);
@@ -44,7 +49,10 @@ const Countries = () => {
   // Get current countries for the current page
   const indexOfLastCountry = currentPage * countriesPerPage;
   const indexOfFirstCountry = indexOfLastCountry - countriesPerPage;
-  const currentCountries = filteredCountries.slice(indexOfFirstCountry, indexOfLastCountry);
+  const currentCountries = filteredCountries.slice(
+    indexOfFirstCountry,
+    indexOfLastCountry
+  );
 
   // Change page
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -63,7 +71,10 @@ const Countries = () => {
       startPage = Math.max(1, endPage - visiblePages + 1);
     }
 
-    return Array.from({ length: endPage - startPage + 1 }, (_, index) => startPage + index);
+    return Array.from(
+      { length: endPage - startPage + 1 },
+      (_, index) => startPage + index
+    );
   };
 
   // Handle changing the number of countries per page
@@ -75,7 +86,10 @@ const Countries = () => {
 
   // Calculate the range of countries being displayed
   const firstCountryIndex = (currentPage - 1) * countriesPerPage + 1;
-  const lastCountryIndex = Math.min(currentPage * countriesPerPage, filteredCountries.length);
+  const lastCountryIndex = Math.min(
+    currentPage * countriesPerPage,
+    filteredCountries.length
+  );
 
   return (
     <>
@@ -120,53 +134,54 @@ const Countries = () => {
 
       {/* Responsive Pagination */}
       <div className={`bottom ${theme}`}>
-
-      
-      <div className={`pagination-results ${theme}`}>
-      <div className={`pagination ${theme}`}>
-        {currentPage > 1 && (
-          <button onClick={() => paginate(currentPage - 1)}>&lt; Previous Page</button>
-        )}
-        {getPageRange().map((page) => (
-          <button
-            key={page}
-            className={page === currentPage ? 'active' : ''}
-            onClick={() => paginate(page)}
-          >
-            {page}
-          </button>
-        ))}
-        {currentPage < totalPages && (
-          <button onClick={() => paginate(currentPage + 1)}>Next Page &gt;</button>
-        )}
-      </div>
-
-     {/* Results */}
-     <div className={`results ${theme}`}>
-          <div className={`result ${theme}`}>
-            Results: {firstCountryIndex}-{lastCountryIndex} of {filteredCountries.length}
+        <div className={`pagination-results ${theme}`}>
+          <div className={`pagination ${theme}`}>
+            {currentPage > 1 && (
+              <button onClick={() => paginate(currentPage - 1)}>
+                <FontAwesomeIcon icon={faChevronLeft} />
+              </button>
+            )}
+            {getPageRange().map((page) => (
+              <button
+                key={page}
+                className={page === currentPage ? "active" : ""}
+                onClick={() => paginate(page)}
+              >
+                {page}
+              </button>
+            ))}
+            {currentPage < totalPages && (
+              <button onClick={() => paginate(currentPage + 1)}>
+                <FontAwesomeIcon icon={faChevronRight} />
+              </button>
+            )}
           </div>
 
-          {/* Dropdown to select the number of countries per page */}
-          <div className={`countries-per-page ${theme}`}>
-            <label htmlFor="countriesPerPage"></label>
-            <select
-              name="countriesPerPage"
-              id="countriesPerPage"
-              value={countriesPerPage}
-              onChange={handleCountriesPerPageChange}
-            >
-              <option value={6}>6</option>
-              <option value={12}>12</option>
-              <option value={24}>24</option>
-              <option value={36}>36</option>
-            </select>
+          {/* Results */}
+          <div className={`results ${theme}`}>
+            {/* Dropdown to select the number of countries per page */}
+            <div className={`countries-per-page ${theme}`}>
+              <label htmlFor="countriesPerPage"></label>
+              <select
+                name="countriesPerPage"
+                id="countriesPerPage"
+                value={countriesPerPage}
+                onChange={handleCountriesPerPageChange}
+              >
+                <option value={6}>6</option>
+                <option value={12}>12</option>
+                <option value={24}>24</option>
+                <option value={36}>36</option>
+              </select>
+            </div>
+            <div className={`result ${theme}`}>
+              Results: {firstCountryIndex}-{lastCountryIndex} of{" "}
+              {filteredCountries.length}
+            </div>
+
           </div>
         </div>
       </div>
-      </div>
-
-   
     </>
   );
 };
