@@ -119,7 +119,7 @@ const Countries = () => {
       </section>
 
       {/* Responsive Pagination */}
-      <div className='bottom'>
+      <div className={`bottom ${theme}`}>
 
       
       <div className={`pagination-results ${theme}`}>
